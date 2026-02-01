@@ -3,6 +3,11 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
+
+const DB = process.env.DATABASE;
+const Port = process.env.PORT;
 
 // Enable the express.json() middleware
 app.use(express.json());
@@ -13,9 +18,7 @@ app.use(cors());
 
 //conecting mongoDB
 mongoose
-  .connect(
-    "mongodb+srv://kingkrishna809_db_user:xY1FAv2MQDZKemsp@cluster0.ukokzkp.mongodb.net/?appName=Cluster0",
-  )
+  .connect(DB)
   .then(() => {
     console.log("BD connected...");
   })
@@ -100,7 +103,6 @@ app.delete("/todos/:id", async (req, res) => {
 });
 
 //start the server
-const port = 8000;
-app.listen(port, () => {
-  console.log("server is listening to the port " + port);
+app.listen(Port, () => {
+  console.log("server is listening to the port " + Port);
 });
