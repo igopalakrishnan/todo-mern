@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 
 const DB = process.env.DATABASE;
-const Port = process.env.PORT;
+const Port = process.env.PORT || 4000;
 
 // Enable the express.json() middleware
 app.use(express.json());
@@ -103,6 +103,6 @@ app.delete("/todos/:id", async (req, res) => {
 });
 
 //start the server
-app.listen(Port || 8080, () => {
+app.listen(Port, () => {
   console.log("server is listening to the port " + Port);
 });
