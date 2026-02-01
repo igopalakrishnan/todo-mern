@@ -103,6 +103,6 @@ app.delete("/todos/:id", async (req, res) => {
 });
 
 //start the server
-app.listen(Port, () => {
+app.listen(Port || 8080, () => {
   console.log("server is listening to the port " + Port);
 });
