@@ -38,6 +38,11 @@ const todoSchema = new mongoose.Schema({
 //creating model
 const todoModel = mongoose.model("Todo", todoSchema);
 
+//home
+app.get("/", (req, res) => {
+  res.send("<h1>ToDo Application</h1>")
+})
+
 //Create a new todo item
 app.post("/todos", async (req, res) => {
   const { title, description } = req.body;
