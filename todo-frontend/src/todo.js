@@ -109,15 +109,16 @@ function Todo() {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure want to delete")) {
-      fetch(apiUrl + "/todos" +id, {
+      fetch(apiUrl + "/todos/" + id, {
         method: "DELETE",
-      }).then(() => {
-        const updatedTodos = todos.filter((item) => item._id !== id);
-        setTodos(updatedTodos);
       })
-      .catch((err) => {
-        console.log(err)
-      })
+        .then(() => {
+          const updatedTodos = todos.filter((item) => item._id !== id);
+          setTodos(updatedTodos);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   };
 
@@ -153,7 +154,7 @@ function Todo() {
         </div>
         <div className="row mt-3">
           <h3>Tasks</h3>
-          <div className="col-md-6">
+          <div className="col-lg-8">
             <ul className="list-group">
               {todos.map((item) => (
                 <li className="list-group-item bg-info d-flex justify-content-between align-items-center my-2">
