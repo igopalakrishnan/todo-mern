@@ -85,13 +85,13 @@ function Todo() {
               return item;
             });
             setTodos(updatedTodos);
+            setEditTitle("");
+            setEditDescription("");
             setMessage("Item updated successfully");
             setTimeout(() => {
               setMessage("");
             }, 3000);
             setEditId(-1);
-            setEditTitle("");
-            setEditDescription("");
           } else {
             //set error
             setError("Unable to create Todo item");
