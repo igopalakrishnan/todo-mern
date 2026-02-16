@@ -11,37 +11,29 @@ function Todo() {
   const [editDescription, setEditDescription] = useState("");
   const apiUrl = process.env.REACT_APP_BACKEND;
 
-  const handleSubmit = () => {
-    //check inputs
-    setError("");
-    if (title.trim() !== "" && description.trim() !== "") {
-      fetch(apiUrl + "/todos", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, description }),
+const handleSubmit = () => {
+  setError("");
+  if (title.trim() !== "" && description.trim() !== "") {
+    fetch(apiUrl + "/todos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, description }),
+    })
+      .then((res) => res.json())
+      .then((newTodo) => {
+        // newTodo includes _id from MongoDB
+        setTodos([...todos, newTodo]);
+        setMessage("Item added successfully");
+        setTimeout(() => setMessage(""), 3000);
+        setTitle("");
+        setDescription("");
       })
-        .then((res) => {
-          if (res.ok) {
-            //add item to list
-            setTodos([...todos, { title, description }]);
-            setTitle("");
-            setDescription("");
-            setMessage("Item added successfully");
-            setTimeout(() => {
-              setMessage("");
-            }, 3000)
-          } else {
-            //set error
-            setError("Unable to create Todo item");
-          }
-        })
-        .catch(() => {
-          setError("Unable to create Todo item");
-        });
-    }
-  };
+      .catch(() => {
+        setError("Unable to create Todo item");
+      });
+  }
+};
+
 
   useEffect(() => {
     getItems();
